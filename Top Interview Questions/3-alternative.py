@@ -10,15 +10,24 @@ class Solution:
         if len(s) == 0:
             return 0
         else:
-            longest = 0
-            for i in range (len(s)):
-                for j in range (len(s), i - 1, -1):
-                    substring = s[i:j]
+            longest = 1
+            curLength = len(s)
+            maxLength = len(s)
+            
+            while curLength > 1:
+                startIndex = 0
+                endIndex = startIndex + curLength
+                while endIndex <= maxLength:
+                    substring = s[startIndex:endIndex]
                     noRepeat = True
                     for k in substring:
                         if (substring.count(k) > 1):
                             noRepeat = False
                             break
-                    if noRepeat and len(substring) > longest:
-                        longest = len(substring)
+                    if noRepeat:
+                        return curLength
+                    startIndex += 1
+                    endIndex += 1
+                curLength -= 1
+
             return longest
